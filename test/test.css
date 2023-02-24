@@ -1,6 +1,18 @@
+p > .csstag{
+    color:red;
+}
 .title{
     color:blue;
 }
+.title2{
+    color:white;
+}
 #test_id{
     color:grey;
+    font-family: 'Gaegu';
+}
+#layout{
+    background-color:black;
+    width:300px;
+    height:300px;
 }
