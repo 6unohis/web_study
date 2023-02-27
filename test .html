@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="./test.css"/>
+</head>
+<body>
+    <div class="container" id="container">
+        <h3 id =title>정말 간단한 TODO 리스트</h3>
+        <div id="sub-container">
+            <ul class="list-group" id="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center" id="list-group-item">
+                  오늘의 할 일
+                  <span class="badge bg-primary rounded-pill">삭제</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center" id="list-group-item">
+                    오늘의 할 일
+                    <span class="badge bg-primary rounded-pill">삭제</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center" id="list-group-item">
+                    오늘의 할 일
+                    <span class="badge bg-primary rounded-pill">삭제</span>
+                  </li>
+            </ul>
+        </div>
+        <div class="input-group mb-3" id="input-group">
+            <input type="text" class="form-control"  id="input-area">
+            <button class="btn btn-outline-secondary" type="button" id="button-area">Button</button>
+            <!-- onclick -> button에 속성을 부여한 것 -->
+          </div>
+    </div>
+    <script>
+      // JS영역
+      let a = "value"
+      let b = 100
+      let c = true
+      let a2 = " is"
+      let a1 = a + a2
+      console.log(a1)
+      let c2 = 10 > 4
+      console.log(c2)
+
+      console.log(`저의 나이는 ${b}`)
+
+      let arr = [1, 2, 3, 4, '문자', true, false]
+      console.log(arr)
+      arr.push("값")
+      console.log(arr)
+      arr.pop(arr)
+      console.log(arr)
+
+      let obj = {"key" : "value",
+                  "key2" : "value2"}
+      let obj2 = {"key3" : "value3"}
+      console.log(obj)  
+      
+      let dic = [
+        {"a" : "apple"},
+        {"b" : "banana"},
+        {"c" : "cloud"}
+      ]
+      console.log(dic)
+
+      let dic2 = [
+        obj,
+        obj2
+      ]
+      console.log(dic2)
+
+    </script>
+</body>
+<!-- body 태그 -> 화면이 그려지는 영역 -->
+</html>

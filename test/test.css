@@ -1,4 +1,4 @@
-p > .csstag{
+p > #csstag{
     color:red;
 }
 .title{
@@ -12,7 +12,20 @@ p > .csstag{
     font-family: 'Gaegu';
 }
 #layout{
-    background-color:black;
+    background-color:blue;
     width:300px;
     height:300px;
+    border:10px solid black;
+    border-radius: 10px;
+    text-align: center;
+    /* 배경색 , 너비, 길이, 선 두께, 모서리 둥근 정도, 글자 위치 */
+}
+.layout_title{
+    color:black;
+    font-size: 200%;
+    font-weight: 900;
+    margin-top: 100px;
+    padding-top:50px;
+    font-family:'Gaegu';
+    /* 글짜 색상, 글짜 크기, 두께, .. , .. , 웹폰트 */
 }
