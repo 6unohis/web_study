@@ -1,5 +1,5 @@
 body{
-    background-color:hotpink;
+    background-color:black;
 }
 #container{
     width: 500px;
@@ -15,7 +15,7 @@ body{
     height: 300px;
     background-color: white;
     border-radius:20px;
-    border:5px solid deeppink;
+    border:5px solid grey;
 }
 #list-group{
     padding-top:5px;
