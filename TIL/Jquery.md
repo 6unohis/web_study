@@ -28,6 +28,10 @@ $(document).ready(function(){
     // 제이쿼리 코드
 }); // 위와 동일함
 ```
+
+</br>
+</br>
+
 <h1>2. Ajax</h1>
 
 - 메소드
