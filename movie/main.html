@@ -29,10 +29,11 @@
           <a class="btn btn-danger btn-lg" href="#" role="button">Learn more</a>
         </p>
       </div>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
+      <div class="row row-cols-1 row-cols-md-3" id="movie-list">
+
+        <div class="col mb-4">
           <div class="card">
-            <img src="http://cdn.ggilbo.com/news/photo/201810/553941_412135_5011.png" class="card-img-top" alt="...">
+            <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               <button type="button" class="btn btn-success" id="review-btn" onclick="review()">리뷰보기</button>
@@ -46,17 +47,17 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
+              <h5 class="modal-title">후기</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="review_body">
               <p>Modal body text goes here.</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <input type="text" class="form-control" id="review" style="width:70%"></inpuyt>
+              <button type="button" class="btn btn-primary" onclick="addReview()">후기 작성</button>
             </div>
           </div>
         </div>
@@ -68,8 +69,89 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script>
-        function review(){
-            $('#review_modal').modal('show')
+      let target_id = 0;
+      $(document).ready(function(){
+        console.log("refresh");
+
+        $.ajax({
+          url:"https://api.themoviedb.org/3/movie/popular?api_key=a4766271523972b4baf24c2dcdcd29ae&page=1", // 도메인
+          data:{"key":"value"},
+          type:"POST",
+            // get방식은 데이터만 표시
+            // 데이터를 전달하기 위해서는
+            // data:{"key": "value"}
+            // type:"POST" 이렇게 작성하면 됨
+            // http 전송 메소드
+          success:function(json){
+            console.log(json);
+
+            $("#movie-list").html('');
+
+            let movie_list = json.results;
+
+            for(let i = 0; i < movie_list.length; i++){
+              let card = `<div class="col mb-4">
+          <div class="card">
+            <img src="${'https://image.tmdb.org/t/p/w500'+movie_list[i].poster_path}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">${movie_list[i].original_title}</h5>
+              <button type="button" class="btn btn-success" id="review-btn" onclick="review(${movie_list[i].id})">리뷰보기</button>
+            </div>
+          </div>
+        </div>`
+
+              $("#movie-list").append(card);
+            }
+            
+          }, // json -> 객체
+          error:function(err){
+
+          }
+        })
+      })
+// 리뷰 모달은 오류 있는거 같아서 그냥 작성만 하겠음
+        function review(id){
+          $("#review-body").html('');
+          target_id = id;
+          $.ajax({
+            url : `http://universeapi.net/review/list?movie_id=${id}`,
+            data:{},
+            type:"GET",
+            success:function(json){
+              console.log(json);
+              let reviews = json.data;
+
+              $(".modal-body").html('');
+              for(let i = 0; i < reviews.length; i++){
+                $(".modal-body").append(`<p>${reviews[i].review}</p>`);
+              }
+            },
+            
+          })
+
+          $('#review_modal').modal('show')
+
+           
+        }
+
+        function addReview(){
+          let review = $("#review").val();
+          let review_html = `<p>${review}</p>`
+          
+          $.ajax({
+            url:`http://universeapi.net/review/add`,
+            data:{
+              movie_id : target_id,
+              review : review
+            },
+            type:"POST",
+            success:function(json){
+              console.log(json);
+            }
+          })
+
+          $(".modal-body").append(review_html);
+          $(".review").val();
         }
     </script>
 </body>
@@ -79,3 +161,7 @@
 <!-- bootstrap을 사용할 때는, 클래스나 아이디의 이름을 기억하고, 그에 따른 컬러 변경 방법을 알아낼 수 있음 -->
 <!-- bootstrap은 일반적으로 클래스나 아이디를 돌려쓰니까..? -->
 <!-- 즉, bootstrap에서 필요한 양식을 가져오고 특정 요소를 바꾸기 위해 css를 작성한다? -->
+<!-- 리뷰를 쓰고싶다 -> 리뷰를 쓰려는 영화에 대한 정보를 줘야 그 이전 리뷰들같은 정보들을 서버 개발자가 님한테 주지 않겠음? -->
+<!-- 리뷰 가져오기 API : http://universeapi.net/review/list?movie_id= -->
+<!-- 리뷰 작성하기 API : http://universeapi.net/review/add -->
+<!-- 글 작성 -> 글과 영화 아이디 서버로 전달 -> 저장 성공 응답 받고 마무리 -->
